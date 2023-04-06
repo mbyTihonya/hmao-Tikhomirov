@@ -193,6 +193,12 @@
       shell: chmod 777 /skillcloud-nginx
       
       
+    - name: Restart firewalld
+      service:
+        name: firewalld
+        state: restarted
+      
+      
     - name: build site:site
       docker_image:
         name: site
@@ -218,8 +224,7 @@
       service:
         name: ssh
         state: restarted
+        
+    - name: Unconditionally reboot the machine with all defaults
+      ansible.builtin.reboot:
 
-    - name: Restart firewalld
-      service:
-        name: firewalld
-        state: restarted
