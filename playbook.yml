@@ -179,7 +179,19 @@
         - nginx.conf
         
     - name: install docker-compose
-      shell: /bin/bash /skill_hmao/docker-compose.sh     
+      shell: /bin/bash /skill_hmao/docker-compose.sh  
+      
+    - name: Install pip
+      apt:
+        name: pip
+        state: present
+      when: "'debian' in group_names"
+
+    - name: install pip
+      yum:
+        name: pip
+        update_cache: true
+      when: "'centos' in group_names"
       
     - name: build site:site
       docker_image:
