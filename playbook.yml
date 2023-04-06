@@ -169,7 +169,8 @@
 
     - name: Copy files for nginx
       copy:
-        remote_src: "{{ item }}"
+        src: "{{ item }}"
+        remote_src: true
         dest: /skillcloud-nginx/{{ item }}"
       with_items:
         - Dockerfile-site
