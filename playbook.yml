@@ -118,6 +118,8 @@
       loop:
         - { regexp: '^#?#Port.*', line: 'Port 1022' }
         - { regexp: '^#?#PubkeyAuthentication.*', line: 'PubkeyAuthentication yes' }
+      when: "'debian' in group_names"
+      
 
     - name: Create users with passwords and ssh keys
       vars:
