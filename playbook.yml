@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
-  become: true
   vars:
     users:
       - "Webdeveloper"
@@ -31,10 +30,28 @@
      loop:
      - PJC-01
      - PJC-02
+   - name: set facts
+     set_fact:
+       ansible_user=root
+       ansible_password=toor
+       ansible_become_user=root
+       ansible_become_pass=root
 
 - hosts: all
-  become: true
-  connection: local
+  vars:
+    users:
+      - "Webdeveloper"
+      - "Devopsengineer"
+      - "Projectmanager"
+      - "Gabyshev-AG"
+    passwords:
+      - Dp68tTJzYXcxVigsqodcK9Ifxgk6lwhf
+      - Rt80eN8ERk9RbBQPEFdMHEAqH0G6YJ6n
+      - 0qZTkqrTLA9ufnBlImTtwWpvO6jfxP6M
+      - vbHOvGJEwDekveaN9rynSr18A3KPN6vd
+    ssh_pub_key:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCo20TEayF8Y/bKgqoBiySUUeYSVZJOCRIlpMVd4tmId3pXvgbpCF01r18aXtLidoQ63YNSt+8ZxDpRAB4AB0F5JWFXL1GJXUgSzA017YNtyrxe/OETnyZAH5+vYxrlOy5WY7cPmHbtYVdjwyZ0cbGnBCDEua5omKdCX0XMcoFT6bZZtk8PmmGY1KA6WJ6+Re4dGJbeGoYJMNXtKSqUI2pIHL5hQCmQMpzkBhE0/dF3k14IYRjO92TCZBdu+X43fT5Ref8sXcr9xzRMIVXLOHKj39Ukjl59AwZ9VBt7dR0UNst0xwEtPPBdmcTS0T7bwFdq5F9jtMAq3rVclkSkMwVVy8YajzVgTq7CegdUSOOV9WUDPC2uveJDWNdbAGQYcNsRCIvPHfbscEzdkeDmphaPjmel/ydkm3XSpa9s4QQ9KMlGGUrFY51IfYiHnUSYUoGq7EaQzJ3/haM/nmYpFN/BnYoZKdjBcdmoyIOWQHvuu20IDJUV/B8FuFmGoQYLskc=
+
   tasks:
 
     - name: install git
@@ -53,14 +70,12 @@
 
     - name: Update package list and install packages centos
       package:
-        update_cache: yes
         name: ['lynx','curl','vim','mc']
       when: "'centos' in group_names"
 
     - name: Install firewalld and enable it
       apt:        
         name: firewalld
-        update_cache: yes 
       when: "'debian' in group_names"
 
     - name: install firewalld centos
@@ -92,8 +107,8 @@
         line: "{{ item.line }}"
         state: present
       loop:
-        - { regexp: '^#?Port.*', line: 'Port 1022' }
-        - { regexp: '^#?PubkeyAuthentication.*', line: 'PubkeyAuthentication yes' }
+        - { regexp: '^#?#Port.*', line: 'Port 1022' }
+        - { regexp: '^#?#PubkeyAuthentication.*', line: 'PubkeyAuthentication yes' }
 
     - name: Create users with passwords and ssh keys
       vars:
@@ -108,16 +123,15 @@
       register: user_created
       with_items: "{{ users }}"
 
-    - name: Set ssh keys for users
-      authorized_key:
-        user: "{{ item }}"
-        key: "{{ ssh_pub_key }}"
-      with_items: "{{ users }}"
+#    - name: Set ssh keys for users
+#      authorized_key:
+#        user: "{{ item }}"
+#        key: "{{ ssh_pub_key }}"
+#      with_items: "{{ users }}"
 
     - name: Install docker apt
       apt:
         name: docker.io
-        update_cache: yes
         state: present
       when: "'debian' in group_names"
 
