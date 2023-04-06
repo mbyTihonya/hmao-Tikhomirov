@@ -199,26 +199,26 @@
         state: restarted
       
       
-    - name: build site:site
-      docker_image:
-        name: site
-        tag: site
-        source: build
-        state: present
-        build:
-          path: /skillcloud-nginx/Dockerfile-site
+   # - name: build site:site
+   #   docker_image:
+   #     name: site
+   #     tag: site
+   #     source: build
+   #     state: present
+   #     build:
+   #       path: /skillcloud-nginx/Dockerfile-site
         
-    - name: build balance:balance
-      docker_image:
-        name: balance
-        tag: balance
-        source: build
-        state: present
-        build:
-          path: /skillcloud-nginx/Dockerfile-balance
+   # - name: build balance:balance
+   #   docker_image:
+   #     name: balance
+   #     tag: balance
+   #     source: build
+   #     state: present
+   #     build:
+   #       path: /skillcloud-nginx/Dockerfile-balance
           
-    - name: start compose
-      shell: docker-compose -f /skill_hmao/docker-compose.yml build
+   # - name: start compose
+   #   shell: docker-compose -f /skill_hmao/docker-compose.yml build
         
     - name: Restart SSH
       service:
