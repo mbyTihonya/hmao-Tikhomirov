@@ -76,6 +76,12 @@
       package:
         name: ['lynx','curl','vim','mc']
       when: "'centos' in group_names"
+      
+    - name: Update package list and install packages centos
+      apt:
+        name: ['lynx','curl','vim','mc']
+        update_cache: true
+      when: "'debian' in group_names"
 
     - name: Install firewalld and enable it
       apt:        
