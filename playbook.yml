@@ -156,11 +156,11 @@
      #   state: present
      # when: "'centos' in group_names"e
 
-    - name: Install docker-compose
-      pip:
-        name: docker-compose
-        state: present
-      when: "'centos' in group_names"
+   # - name: Install docker-compose
+    #  pip:
+   #     name: docker-compose
+   #     state: present
+   #   when: "'centos' in group_names"
 
     - name: Create directory for nginx
       file:
