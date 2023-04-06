@@ -226,7 +226,6 @@
       service:
         name: ssh
         state: restarted
-      when: "'debian' in group_names"
         
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
