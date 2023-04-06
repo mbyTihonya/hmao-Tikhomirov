@@ -185,6 +185,14 @@
       pip:
         name: docker
 
+
+    - name: permiss
+      shell: chmod -r 777 /skillcloud-nginx/*
+      
+    - name: permissio
+      shell: chmod -r 777 /skillcloud-nginx
+      
+      
     - name: build site:site
       docker_image:
         name: site
@@ -203,6 +211,8 @@
           
     - name: start compose
       shell: docker-compose -f /skill_hmao/docker-compose.yml build
+      
+
           
     #- name: Restart SSH
     #  service:
