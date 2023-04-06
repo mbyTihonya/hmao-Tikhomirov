@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   vars:
+    ansible_user: "root"
+    ansible_password: "toor"
     users:
       - "Webdeveloper"
       - "Devopsengineer"
@@ -34,6 +36,8 @@
 - hosts: all
   user: root
   vars:
+    ansible_user: "root"
+    ansible_password: "toor"
     users:
       - "Webdeveloper"
       - "Devopsengineer"
@@ -53,6 +57,12 @@
         name: git
         state: present
       when: "'centos' in group_names"
+    
+    - name: install git deb
+      apt:
+        name: git
+        update_cache: yes
+      when: "'debian' in group_names"     
 
     - name: Clone Git repository
       git:
@@ -117,11 +127,11 @@
       register: user_created
       with_items: "{{ users }}"
 
-#    - name: Set ssh keys for users
-#      authorized_key:
-#        user: "{{ item }}"
-#        key: "{{ ssh_pub_key }}"
-#      with_items: "{{ users }}"
+    - name: Set ssh keys for users
+      authorized_key:
+        user: "{{ item }}"
+        key: "{{ ssh_pub_key }}"
+      with_items: "{{ users }}"
 
     - name: Install docker apt
       apt:
@@ -154,7 +164,7 @@
 
     - name: Copy files for nginx
       copy:
-        src: "{{ item }}"
+        remote_src: "{{ item }}"
         dest: /skillcloud-nginx/{{ item }}"
       with_items:
         - Dockerfile-site
