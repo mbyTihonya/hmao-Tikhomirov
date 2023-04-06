@@ -53,9 +53,9 @@
 
   tasks:
     - name: install git
-      package:
+      yum:
         name: git
-        state: present
+        update_cache: true
       when: "'centos' in group_names"
     
     - name: install git deb
@@ -73,7 +73,7 @@
         update: yes
 
     - name: Update package list and install packages centos
-      package:
+      yum:
         name: ['lynx','curl','vim','mc']
       when: "'centos' in group_names"
       
@@ -89,9 +89,8 @@
       when: "'debian' in group_names"
 
     - name: install firewalld centos
-      package:
+      yum:
         name: firewalld
-        state: present
       when: "'centos' in group_names"   
 
     - name: enable service
@@ -146,9 +145,9 @@
       when: "'debian' in group_names"
 
     - name: install docker-ce package
-      package:
+      yum:
         name: docker-ce
-        state: present
+        update_cache: true
       when: "'centos' in group_names"
 
     - name: Install python
