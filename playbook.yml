@@ -144,9 +144,9 @@
         state: present
       when: "'debian' in group_names"
 
-    - name: install docker-ce package
+    - name: install docker package
       yum:
-        name: docker-ce
+        name: docker
         update_cache: true
       when: "'centos' in group_names"
 
@@ -169,7 +169,7 @@
 
     - name: Copy files for nginx
       copy:
-        src: "{{ item }}"
+        src: "/skill_hmao/{{ item }}"
         dest: /skillcloud-nginx/{{ item }}"
       with_items:
         - Dockerfile-site
