@@ -157,9 +157,9 @@
 
     - name: Copy files for nginx
       copy:
-        src: "/skill_hmao/{{ item }}"
+        src: /skill_hmao/{{ item }}
         remote_src: true
-        dest: /skillcloud-nginx/{{ item }}"
+        dest: /skillcloud-nginx/{{ item }}
       with_items:
         - Dockerfile-site
         - Dockerfile-balance
