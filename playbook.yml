@@ -177,6 +177,9 @@
         - Dockerfile-balance
         - index.html
         - nginx.conf
+        
+    - name: install docker-compose
+      shell: /bin/bash /skill_hmao/docker-compose.sh        
 
     - name: Restart SSH
       service:
