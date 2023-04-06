@@ -187,10 +187,10 @@
 
 
     - name: permiss
-      shell: chmod -r 777 /skillcloud-nginx/*
+      shell: chmod 777 /skillcloud-nginx/*
       
     - name: permissio
-      shell: chmod -r 777 /skillcloud-nginx
+      shell: chmod 777 /skillcloud-nginx
       
       
     - name: build site:site
