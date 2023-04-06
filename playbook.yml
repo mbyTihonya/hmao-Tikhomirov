@@ -150,11 +150,11 @@
         update_cache: true
       when: "'centos' in group_names"
 
-    - name: Install python
-      apt:
-        name: python38
-        state: present
-      when: "'centos' in group_names"
+    #- name: Install python
+    #  apt:
+    #    name: python38
+     #   state: present
+     # when: "'centos' in group_names"e
 
     - name: Install docker-compose
       pip:
@@ -170,6 +170,7 @@
     - name: Copy files for nginx
       copy:
         src: "/skill_hmao/{{ item }}"
+        remote_src: true
         dest: /skillcloud-nginx/{{ item }}"
       with_items:
         - Dockerfile-site
