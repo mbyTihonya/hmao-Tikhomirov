@@ -138,18 +138,6 @@
         key: "{{ ssh_pub_key }}"
       with_items: "{{ users }}"
 
-    - name: Install docker apt
-      apt:
-        name: docker.io
-        state: present
-      when: "'debian' in group_names"
-
-    - name: install docker package
-      yum:
-        name: docker
-        update_cache: true
-      when: "'centos' in group_names"
-
     #- name: Install python
     #  apt:
     #    name: python38
@@ -193,6 +181,10 @@
         update_cache: true
       when: "'centos' in group_names"
       
+    - name: Install docker apt
+      pip:
+        name: docker
+
     - name: build site:site
       docker_image:
         name: site
