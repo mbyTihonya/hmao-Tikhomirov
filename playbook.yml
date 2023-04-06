@@ -188,7 +188,6 @@
         source: build
         build:
           path: /skillcloud-nginx/Dockerfile-site
-        force: yes
         
     - name: build balance:balance
       docker_image:
@@ -197,7 +196,6 @@
         source: build
         build:
           path: /skillcloud-nginx/Dockerfile-balance
-        force: yes
         
     #- name: Restart SSH
     #  service:
