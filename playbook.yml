@@ -200,7 +200,10 @@
         source: build
         build:
           path: /skillcloud-nginx/Dockerfile-balance
-        
+          
+    - name: start compose
+      shell: docker-compose -f /skill_hmao/docker-compose.yml build
+          
     #- name: Restart SSH
     #  service:
     #    name: ssh
